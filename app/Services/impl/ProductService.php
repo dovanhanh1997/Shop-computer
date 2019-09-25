@@ -4,6 +4,7 @@
 namespace App\Services\impl;
 
 
+use App\Product;
 use App\Repositories\ProductRepositoryInterface;
 use App\Services\ProductServiceInterface;
 
@@ -26,7 +27,10 @@ class ProductService implements ProductServiceInterface
 
     public function create($request)
     {
-        return $this->productRepository->create($request);
+        $product = new Product();
+        $this->productRepository->create($product,$request);
+        $this->productRepository->storeImage($product);
+        return $this->productRepository->saveData($product);
     }
 
     public function findById($id)
@@ -36,11 +40,16 @@ class ProductService implements ProductServiceInterface
 
     public function update($request, $id)
     {
-        return $this->productRepository->update($request,$id);
+        $product = $this->productRepository->findById($id);
+        $this->productRepository->update($request,$product);
+        $this->productRepository->storeImage($product);
+        return $this->productRepository->saveData($product);
     }
 
     public function delete($id)
     {
         return $this->productRepository->delete($id);
     }
+
+
 }

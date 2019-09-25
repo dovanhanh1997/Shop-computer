@@ -26,15 +26,18 @@
                             <th scope="col">Product ID</th>
                             <th scope="col">Product Name</th>
                             <th scope="col">Product Price</th>
+                            <th scope="col">Product Image</th>
                             </thead>
                             <tbody>
                             @foreach($bill->products as $key => $product)
-                               <tr>
-                                   <td>{{ ++$key }}</td>
-                                   <td>{{ $product->id }}</td>
-                                   <td>{{ $product->productName }}</td>
-                                   <td>{{ $product->productPrice }}</td>
-                               </tr>
+                                <tr>
+                                    <td>{{ ++$key }}</td>
+                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $product->productName }}</td>
+                                    <td>{{ $product->productPrice }}</td>
+                                    <td><img src="{{ asset('storage/' . $product->image) }}" class="img-thumbnail"
+                                             style="width: 100px" alt=""></td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>

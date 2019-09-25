@@ -2,13 +2,14 @@
 @section("content")
     <div class="container">
         <h3>List Product</h3> <br>
-        <table class="table">
+        <table class="table" style="border: 1px solid">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Product-ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
+                <th scope="col">Image</th>
                 <th></th>
             </tr>
             </thead>
@@ -19,6 +20,8 @@
                     <td>{{ 'PD-'.$product->id }}</td>
                     <td>{{ $product->productName }}</td>
                     <td>{{ number_format($product->productPrice) }}</td>
+                    <td><img src="{{ asset('storage/' . $product->image) }}" class="img-thumbnail" alt=""
+                        style="width: 100px"></td>
                     <td>
                         <div class="d-flex">
                             <div class="pr-2">

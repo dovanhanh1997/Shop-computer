@@ -15,9 +15,10 @@ class ProductRepository implements ProductRepositoryInterface
         return Product::all();
     }
 
-    public function create($request)
+    public function create($product, $request)
     {
-        return Product::create($request->all());
+        $product->productName = $request->productName;
+        $product->productPrice = $request->productPrice;
     }
 
     public function findById($id)
@@ -25,15 +26,27 @@ class ProductRepository implements ProductRepositoryInterface
         return Product::find($id);
     }
 
-    public function update($request, $id)
+    public function update($request, $product)
     {
-        $product = $this->findById($id);
-        return $product->update($request->all());
+        $product->productName = $request->productName;
+        $product->productPrice = $request->productPrice;
     }
 
     public function delete($id)
     {
         $product = $this->findById($id);
         return $product->delete();
+    }
+
+    public function storeImage($product)
+    {
+        if (request()->has('image')) {
+            $product->image = request()->image->store('uploads', 'public');
+        }
+    }
+
+    public function saveData($product)
+    {
+        return $product->save();
     }
 }
