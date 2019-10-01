@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequestForm;
 use App\Services\UserServiceInterface;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequestForm $request)
     {
         $this->userService->create($request);
         return redirect()->route('users.index');
@@ -81,7 +82,7 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequestForm $request, $id)
     {
         $this->userService->update($request,$id);
         return redirect()->route('users.index');

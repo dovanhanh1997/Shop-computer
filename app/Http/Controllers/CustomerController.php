@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerRequestForm;
 use App\Services\CustomerServiceInterface;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,7 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequestForm $request)
     {
         $this->customerService->create($request);
         return redirect()->route('customers.index');
@@ -81,7 +82,7 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerRequestForm $request, $id)
     {
         $this->customerService->update($request,$id);
         return redirect()->route('customers.index');

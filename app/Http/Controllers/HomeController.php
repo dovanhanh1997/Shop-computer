@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
+     * @var ProductServiceInterface
+     */
+    private $productService;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ProductServiceInterface $productService)
     {
         $this->middleware('auth');
+        $this->productService = $productService;
     }
 
     /**
@@ -23,6 +30,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $products = $this->productService->getAll();
+        return view('home.home',compact('products'));
+    }
+
+    public function detail($id)
+    {
+        $product = $this->productService->findById($id);
+        return view('home.detail',compact('product'));
     }
 }

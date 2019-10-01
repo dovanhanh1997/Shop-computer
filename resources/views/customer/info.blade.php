@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         User Name: {{ $customer->customerName }}<br>
-                        User Email: {{ $customer->customerPhone }}<br><br>
+                        User Phone: {{ $customer->customerPhone }}<br><br>
                         <a href="{{ route('customers.index') }}" class="btn btn-secondary">List</a>
                         <a href="{{ route('customers.edit',$customer->id) }}" class="btn btn-primary">Update</a>
                     </div>

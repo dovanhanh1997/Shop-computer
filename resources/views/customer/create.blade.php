@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card" style="background-color: #cbd3da">
                     <div class="card-header">
-                        Register Cutomer
+                        Register Customer
                     </div>
                     <div class="card-body">
                         <form action="{{ route('customers.store') }}" method="post">
@@ -18,6 +18,7 @@
                                 </label>
                                 <div class="col-md-6">
                                     <input type="text" name="customerName" class="form-control">
+
                                 </div>
                             </div>
                             <div class="form-group row">

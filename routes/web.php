@@ -16,9 +16,14 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::prefix('home')->group(function(){
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/detail/{id}', 'HomeController@detail')->name('detail');
+    Route::post('/detail/{id}','CartController@addToCart')->name('addToCart');
 
-Route::get('/home', 'HomeController@index')->name('home');
+});
 Route::resource('users','UserController');
 Route::resource('customers','CustomerController');
 Route::resource('bills','BillController');
 Route::resource('products','ProductController');
+

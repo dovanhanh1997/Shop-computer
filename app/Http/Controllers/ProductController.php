@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequestForm;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequestForm $request)
     {
         $this->productService->create($request);
         return redirect()->route('products.index');
@@ -81,7 +82,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequestForm $request, $id)
     {
         $this->productService->update($request,$id);
         return redirect()->route('products.index');
