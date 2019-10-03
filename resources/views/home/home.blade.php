@@ -4,7 +4,6 @@
 
         <!--Grid row-->
         <div class="row wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
-
         @foreach($products as $product)
             <!--Grid column-->
                 <div class="col-lg-3 col-md-6 mb-4">
