@@ -1,5 +1,5 @@
 @extends("layouts.home")
-@section('content')
+@section('home')
     <section class="text-center mb-4">
 
         <!--Grid row-->
@@ -14,7 +14,7 @@
 
                         <!--Card image-->
                         <div class="view overlay">
-                            <a href="{{ route('detail',$product->id) }}"> <img src="{{ asset('storage/'.$product->image) }}" alt="" width="200px"
+                            <a href="{{ route('home.detail',$product->id) }}"> <img src="{{ asset('storage/'.$product->image) }}" alt="" width="200px"
                                              height="200px">
                             </a>
                         </div>
@@ -23,7 +23,7 @@
                         <!--Card content-->
                         <div class="card-body text-center">
                             <!--Category & Title-->
-                            <a href="" class="grey-text">
+                            <a href="{{ route('changeCart' , $product->id) }}" class="grey-text">
                                 <h5>Cart</h5>
                             </a>
                             <h5>

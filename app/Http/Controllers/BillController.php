@@ -28,7 +28,7 @@ class BillController extends Controller
     public function index()
     {
         $bills = $this->billService->getAll();
-        return view('bill.index', compact('bills'));
+        return view('admin.bill.index', compact('bills'));
     }
 
     /**
@@ -38,7 +38,7 @@ class BillController extends Controller
      */
     public function create()
     {
-        return view('bill.create');
+        return view('admin.bill.create');
     }
 
     /**
@@ -62,7 +62,7 @@ class BillController extends Controller
     public function show($id)
     {
         $bill = $this->billService->findById($id);
-        return view('bill.detail', compact('bill'));
+        return view('admin.bill.detail', compact('bill'));
     }
 
     /**
@@ -73,7 +73,7 @@ class BillController extends Controller
      */
     public function edit($id)
     {
-        return view('bill.update', compact('id'));
+        return view('admin.bill.update', compact('id'));
     }
 
     /**

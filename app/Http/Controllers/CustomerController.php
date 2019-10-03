@@ -27,7 +27,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = $this->customerService->getAll();
-        return view('customer.index',compact('customers'));
+        return view('admin.customer.index',compact('customers'));
     }
 
     /**
@@ -37,7 +37,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer.create');
+        return view('admin.customer.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = $this->customerService->findById($id);
-        return view('customer.info',compact('customer'));
+        return view('admin.customer.info',compact('customer'));
     }
 
     /**
@@ -72,7 +72,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        return view('customer.update',compact('id'));
+        return view('admin.customer.update',compact('id'));
     }
 
     /**

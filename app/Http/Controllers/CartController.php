@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Cart;
+use App\Services\CartServiceInterface;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
-use mysql_xdevapi\Session;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -13,25 +14,40 @@ class CartController extends Controller
      * @var ProductServiceInterface
      */
     private $productService;
+    /**
+     * @var CartServiceInterface
+     */
+    private $cartService;
 
-    public function __construct(ProductServiceInterface $productService)
+    public function __construct(CartServiceInterface $cartService,
+                                ProductServiceInterface $productService)
     {
         $this->productService = $productService;
+        $this->cartService = $cartService;
     }
 
-    public function addToCart($productId)
+    public function index()
+    {
+        $cart = $this->cartService->getCart();
+        $products = $this->cartService->getProduct();
+        return view('home.cart.index', compact('cart', 'products', 'productQty'));
+    }
+
+    public function changeCart(Request $request, $productId)
     {
         $product = $this->productService->findById($productId);
-        if (Session::has('cart')){
-            $oldCart = Session::get('cart');
-        } else{
-            $oldCart = null;
-        }
 
-        $cart = new Cart($oldCart);
-        $cart->addInToCart($product);
+        $this->cartService->updateOrDeleteCart($product, $request);
 
-        Session::put("cart",$cart);
+        return redirect()->back();
+    }
+
+    public function delete($productId)
+    {
+        $product = $this->productService->findById($productId);
+
+        $this->cartService->deleteProductInCart($product);
+
         return redirect()->back();
     }
 }

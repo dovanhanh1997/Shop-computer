@@ -27,7 +27,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userService->getAll();
-        return view('user.index', compact('users'));
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        return view('admin.user.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->userService->findById($id);
-        return view('user.show',compact('user'));
+        return view('admin.user.show', compact('user'));
     }
 
     /**
@@ -72,7 +72,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('user.update',compact('id'));
+        return view('admin.user.update', compact('id'));
     }
 
     /**
@@ -84,7 +84,7 @@ class UserController extends Controller
      */
     public function update(UserRequestForm $request, $id)
     {
-        $this->userService->update($request,$id);
+        $this->userService->update($request, $id);
         return redirect()->route('users.index');
     }
 
