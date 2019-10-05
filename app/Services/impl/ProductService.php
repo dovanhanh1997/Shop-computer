@@ -28,7 +28,7 @@ class ProductService implements ProductServiceInterface
     public function create($request)
     {
         $product = new Product();
-        $this->productRepository->create($product,$request);
+        $this->productRepository->create($product, $request);
         $this->productRepository->storeImage($product);
         return $this->productRepository->saveData($product);
     }
@@ -41,7 +41,7 @@ class ProductService implements ProductServiceInterface
     public function update($request, $id)
     {
         $product = $this->productRepository->findById($id);
-        $this->productRepository->update($request,$product);
+        $this->productRepository->update($request, $product);
         $this->productRepository->storeImage($product);
         return $this->productRepository->saveData($product);
     }
@@ -51,5 +51,9 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->delete($id);
     }
 
+    public function getPaginate($number)
+    {
+        return $this->productRepository->getPaginate($number);
+    }
 
 }

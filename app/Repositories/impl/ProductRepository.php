@@ -9,6 +9,15 @@ use App\Repositories\ProductRepositoryInterface;
 
 class ProductRepository implements ProductRepositoryInterface
 {
+    /**
+     * @var Product
+     */
+    private $product;
+
+    public function __construct(Product $product)
+    {
+        $this->product = $product;
+    }
 
     public function getAll()
     {
@@ -48,5 +57,10 @@ class ProductRepository implements ProductRepositoryInterface
     public function saveData($product)
     {
         return $product->save();
+    }
+
+    public function getPaginate($number)
+    {
+        return $this->product->setPerPage($number);
     }
 }

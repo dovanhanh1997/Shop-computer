@@ -15,8 +15,10 @@
     <title>Document</title>
 </head>
 <body>
+
 <nav class="navbar navbar-light bg-light">
     <a href="{{ route('home') }}" class="navbar-brand"><h3>Shop Computer</h3></a>
+    <a href="{{ route('shopBill.getBill') }}" class="navbar-brand"><h3>My Bill</h3></a>
     <a href="{{ route('carts.index') }}" style="color: #202326;">
         <div class="d-flex">
             <div class="pr-3">
@@ -33,6 +35,7 @@
             </div>
         </div>
     </a>
+
 
 </nav>
 <div>

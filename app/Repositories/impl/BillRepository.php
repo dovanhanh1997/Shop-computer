@@ -36,4 +36,15 @@ class BillRepository implements BillRepositoryInterface
         $bill = $this->findById($id);
         return $bill->delete();
     }
+
+    public function store($bill)
+    {
+        return $bill->save();
+    }
+
+    public function findByUserId($id)
+    {
+        $bill = Bill::where('user_id',$id)->orderBy('payDate','desc')->get();
+        return $bill;
+    }
 }

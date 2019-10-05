@@ -13,7 +13,7 @@ class BillsSeeder extends Seeder
     public function run()
     {
         $bill = new Bill();
-        $bill->customer_id = '1';
+        $bill->user_id = '1';
         $bill->payDate = '2019-09-23';
         $bill->billPrice = '10000000';
         $bill->billAddress = 'address';
@@ -21,7 +21,7 @@ class BillsSeeder extends Seeder
         $bill->billCity = 'address';
         $bill->save();
         $bill = new Bill();
-        $bill->customer_id = '2';
+        $bill->user_id = '2';
         $bill->payDate = '2019-09-23';
         $bill->billPrice = '8000000';
         $bill->billAddress = 'address';

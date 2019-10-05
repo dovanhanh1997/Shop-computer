@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Bill;
 use App\Http\Requests\BillRequestForm;
 use App\Services\BillServiceInterface;
 use Illuminate\Http\Request;
+use App\Http\Resources\Bill as BillResource;
 
 class BillController extends Controller
 {
@@ -15,7 +17,7 @@ class BillController extends Controller
 
     public function __construct(BillServiceInterface $billService)
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
 
         $this->billService = $billService;
     }
@@ -99,5 +101,44 @@ class BillController extends Controller
     {
         $this->billService->delete($id);
         return redirect()->route('bills.index');
+    }
+
+    public function indexApi()
+    {
+        $bill = $this->billService->getAll();
+
+        return BillResource::collection($bill);
+    }
+
+    public function showApi($id)
+    {
+        $bill = $this->billService->findById($id);
+
+        return new BillResource($bill);
+    }
+
+    public function storeApi(Request $request)
+    {
+        $bill = $request->isMethod('PUT') ?
+            $this->billService->findById($request->id) :
+            new Bill();
+
+        $bill->id = $request->input('id');
+        $bill->user_id = $request->input('user_id');
+        $bill->billPrice = $request->input('billPrice');
+        $bill->payDate = $request->input('payDate');
+
+        if ($bill->save()) {
+            return new BillResource($bill);
+        }
+    }
+
+    public function destroyApi($id)
+    {
+        $bill = $this->billService->findById($id);
+
+        if ($bill->delete()) {
+            return new BillResource($bill);
+        }
     }
 }

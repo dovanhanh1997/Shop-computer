@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\BillServiceInterface;
 use App\Services\CartServiceInterface;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
@@ -14,13 +15,19 @@ class HomeController extends Controller
      * @var CartServiceInterface
      */
     private $cartService;
+    /**
+     * @var BillServiceInterface
+     */
+    private $billService;
 
 
     public function __construct(ProductServiceInterface $productService,
-                                CartServiceInterface $cartService)
+                                CartServiceInterface $cartService,
+                                BillServiceInterface $billService)
     {
         $this->productService = $productService;
         $this->cartService = $cartService;
+        $this->billService = $billService;
     }
 
 
@@ -45,6 +52,7 @@ class HomeController extends Controller
     public function checkOut()
     {
         $products = $this->cartService->getProduct();
-        return view('home.check-out',compact('products'));
+        return view('home.check-out', compact('products'));
     }
+
 }
