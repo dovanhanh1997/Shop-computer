@@ -18,7 +18,6 @@
                         <td><a href="{{ route('shopBill.billDetail',$bill->id) }}">{{ $bill->id }}</a></td>
                         <td>{{ $bill->payDate }}</td>
                         <td>
-{{--                            @dd($bill->products)--}}
                             @foreach($bill->products as $product)
                                 <small>{{ $product->productName }}</small><br>
                                 @endforeach

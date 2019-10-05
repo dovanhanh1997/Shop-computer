@@ -5,9 +5,8 @@
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Customer ID</th>
-            <th scope="col">Customer Name</th>
+            <th scope="col">User ID</th>
+            <th scope="col">User Name</th>
             <th scope="col">Pay Date</th>
             <th scope="col">Amount Product</th>
             <th scope="col">Total Bill</th>
@@ -17,12 +16,11 @@
         <tbody>
         @foreach($bills as $key => $bill)
         <tr>
-            <td>{{ ++$key }}</td>
-            <td>{{ 'CI-'.$bill->customer_id }}</td>
-            <td>{{ $bill->customer->customerName }}</td>
-            <td>{{ $bill->pay_date }}</td>
+            <td>{{ 'CI-'.$bill->user->id }}</td>
+            <td>{{ $bill->user->name }}</td>
+            <td>{{ $bill->payDate }}</td>
             <td>{{ $bill->products()->count() }}</td>
-            <td>{{ number_format($bill->total).' VND' }}</td>
+            <td>{{ number_format($bill->billPrice).' VND' }}</td>
             <td>
                 <div class="d-flex">
                     <div class="pr-2">

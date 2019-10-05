@@ -16,6 +16,7 @@ class CreateBillsProductsTable extends Migration
         Schema::create('bills_products', function (Blueprint $table) {
             $table->unsignedBigInteger('bill_id');
             $table->unsignedBigInteger('product_id');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

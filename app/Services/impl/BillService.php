@@ -8,6 +8,7 @@ use App\Bill;
 use App\Repositories\BillRepositoryInterface;
 use App\Services\BillServiceInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class BillService implements BillServiceInterface
@@ -87,9 +88,13 @@ class BillService implements BillServiceInterface
     public function storeBillProduct($billId)
     {
         $products = $this->getProductFromSession();
-        $bill = $this->findById($billId);
         foreach ($products as $product) {
-            $bill->products()->attach($product['product']->id);
+            DB::table('bills_products')->insert([
+               'bill_id' => $billId,
+               'product_id'=> $product['product'] -> id,
+               'quantity' => $product['qty'],
+            ]);
+
         }
     }
 

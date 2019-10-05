@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Bill extends Model
 {
     protected $guarded = ['_token'];
-    public function customer()
+    public function user()
     {
-        return $this->belongsTo('App\Customer');
+        return $this->belongsTo('App\User');
     }
 
     public function products()
@@ -17,4 +17,6 @@ class Bill extends Model
         return $this->belongsToMany('App\Product','bills_products',
             'bill_id','product_id');
     }
+
+
 }

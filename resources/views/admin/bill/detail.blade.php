@@ -9,9 +9,11 @@
                         Customer Details
                     </div>
                     <div class="card-body">
-                        Customer ID: {{ $bill->customer->id }}<br>
-                        Customer Name: {{ $bill->customer->customerName }}<br>
-                        Customer Phone: {{ $bill->customer->customerPhone }}<br><br>
+                        Customer ID: {{ $bill->user->id }}<br>
+                        Customer Name: {{ $bill->user->name }}<br>
+                        Customer Phone: @if($bill->user->profile)
+                            {{ $bill->user->profile->profilePhone }}@else{{ 'Update Profile' }}@endif
+                        <br><br>
                     </div>
                 </div>
                 <br>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\BillServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ShopBillController extends Controller
@@ -22,7 +23,7 @@ class ShopBillController extends Controller
     public function index()
     {
         $bills = $this->billService->getAll();
-        return view('home.bill.list',compact('bills'));
+        return view('home.bill.list', compact('bills'));
     }
 
     public function storeBill(Request $request)
@@ -34,11 +35,15 @@ class ShopBillController extends Controller
     public function getMyBill()
     {
         $bills = $this->billService->findByUserId(Auth::user()->id);
-        return view('home.bill.myBill',compact('bills'));
+        return view('home.bill.myBill', compact('bills'));
     }
 
     public function getBillDetail($billId)
     {
-        return view('home.bill.detail');
+        $bill = $this->billService->findById($billId);
+        $billProducts = DB::table('bills_products')
+            ->where('bill_id',$billId)
+            ->get();
+        return view('home.bill.detail',compact('bill','billProducts'));
     }
 }
