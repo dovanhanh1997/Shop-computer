@@ -37,7 +37,7 @@ class ShopBillController extends Controller
     {
 
         $this->billService->create($request);
-        return redirect()->route('shopBill.getBill');
+        return redirect()->route('mail.form');
     }
 
     public function getMyBill()

@@ -1,21 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+@extends("layouts.home")
+@section('home')
     <div class="row justify-content-center">
-        <form method="post" action="{{ route('mail.send') }}">
-            @csrf
-            <label for="To">To:
-                <input type="text" name="user">
-            </label>
-            <button type="submit">Send</button>
-        </form>
+        <div class="form-group">
+            <p> We will send bill for you. Please enter your mail
+            </p><br>
+            <form method="post" action="{{ route('mail.send') }}">
+                @csrf
+                <label for="To">To:
+                    <input type="text" name="user">
+                </label>
+                <br><br>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+
     </div>
-</body>
-</html>
+@endsection

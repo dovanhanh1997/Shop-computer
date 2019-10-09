@@ -41,7 +41,7 @@ Route::middleware('lang')->prefix('bills')->group(function () {
     Route::get('/detail/{billId}', 'ShopBillController@getBillDetail')->name('shopBill.billDetail');
 });
 
-Route::prefix('mail')->group(function (){
+Route::middleware('lang')->prefix('mail')->group(function (){
     Route::get('/','SendMailController@form')->name('mail.form');
     Route::post('/send','SendMailController@sendMail')->name('mail.send');
 });

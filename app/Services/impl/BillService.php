@@ -43,7 +43,7 @@ class BillService implements BillServiceInterface
 
         $this->storeBillProduct($billId);
 
-        Session::put('cart', null);
+        Session::put('billId', $billId);
     }
 
     public function findById($id)
