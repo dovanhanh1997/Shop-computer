@@ -13,8 +13,9 @@
 
                         <!--Card image-->
                         <div class="view overlay">
-                            <a href="{{ route('home.detail',$product->id) }}"> <img src="{{ asset('storage/'.$product->image) }}" alt="" width="200px"
-                                             height="200px">
+                            <a href="{{ route('home.detail',$product->id) }}"> <img
+                                    src="{{ asset('storage/'.$product->image) }}" alt="" width="200px"
+                                    height="200px">
                             </a>
                         </div>
                         <!--Card image-->
@@ -22,9 +23,6 @@
                         <!--Card content-->
                         <div class="card-body text-center">
                             <!--Category & Title-->
-                            <a href="{{ route('changeCart' , $product->id) }}" class="grey-text">
-                                <h5>Cart</h5>
-                            </a>
                             <h5>
                                 <strong>
                                     <a href="" class="dark-grey-text">{{ $product->productName }}</a>

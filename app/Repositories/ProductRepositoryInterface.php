@@ -21,4 +21,6 @@ interface ProductRepositoryInterface
     public function saveData($product);
 
     public function getPaginate($number);
+
+    public function findByKey($keySearch);
 }

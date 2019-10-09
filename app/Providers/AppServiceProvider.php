@@ -9,8 +9,10 @@ use App\Repositories\impl\BillRepository;
 use App\Repositories\impl\CartRepository;
 use App\Repositories\impl\CustomerRepository;
 use App\Repositories\impl\ProductRepository;
+use App\Repositories\impl\ProfileRepository;
 use App\Repositories\impl\UserRepository;
 use App\Repositories\ProductRepositoryInterface;
+use App\Repositories\ProfileRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use App\Services\BillServiceInterface;
 use App\Services\CartServiceInterface;
@@ -19,11 +21,14 @@ use App\Services\impl\BillService;
 use App\Services\impl\CartService;
 use App\Services\impl\CustomerService;
 use App\Services\impl\ProductService;
+use App\Services\impl\ProfileService;
 use App\Services\impl\UserService;
 use App\Services\ProductServiceInterface;
+use App\Services\ProfileServiceInterface;
 use App\Services\UserServiceInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\Resource;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -62,6 +67,12 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(CartServiceInterface::class,
             CartService::class);
+
+        $this->app->singleton(ProfileServiceInterface::class,
+            ProfileService::class);
+
+        $this->app->singleton(ProfileRepositoryInterface::class,
+            ProfileRepository::class);
     }
 
     /**

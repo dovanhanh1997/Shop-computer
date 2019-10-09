@@ -56,4 +56,8 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->getPaginate($number);
     }
 
+    public function findByKey($keySearch)
+    {
+        return $this->productRepository->findByKey($keySearch);
+    }
 }

@@ -43,16 +43,16 @@ class HomeController extends Controller
         return view('home.detail', compact('product'));
     }
 
-    public function home()
-    {
-        $products = $this->productService->getAll();
-        return view('home.home', compact('products'));
-    }
-
     public function checkOut()
     {
         $products = $this->cartService->getProduct();
         return view('home.check-out', compact('products'));
     }
 
+    public function search(Request $request)
+    {
+        $products = $this->productService->findByKey($request->keySearch);
+        return view('home.home', compact('products'));
+
+    }
 }

@@ -14,8 +14,8 @@
                                 </div>
                                 <div class="col">
                                     <p>{{ $product['product']->productName }}</p>
-                                    <p>Provided <a href="{{ route('home') }}">Shop Computer</a></p>
-                                    <p><a href="{{ route('deleteCart',$product['product']->id) }}">Delete</a></p>
+                                    <p>{{__('cart_index.provider')}} <a href="{{ route('home') }}">Shop Computer</a></p>
+                                    <p><a href="{{ route('deleteCart',$product['product']->id) }}">{{__('cart_index.Delete')}}</a></p>
                                 </div>
 
                                 <div class="col" style="">
@@ -42,7 +42,7 @@
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-7 text-md-left" style="padding: 10px;">
-                        Calculate Provisional
+                        {{__('cart_index.calculateProvisional')}}
                     </div>
                     <div class="col text-md-right" style="padding: 10px">@if(\Illuminate\Support\Facades\Session::has('cart'))
                     <p><strong>{{ number_format($cart->totalPrice).' VND' }}</strong></p>@endif
@@ -50,7 +50,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-7 text-md-left" style="padding: 10px;">
-                        Total Qty
+                        {{__('cart_index.totalQty')}}
                     </div>
                     <div class="col text-md-right" style="padding: 10px">@if(\Illuminate\Support\Facades\Session::has('cart'))
                     <p><strong>{{ $cart->totalQty }}</strong></p>@endif
@@ -58,14 +58,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-7 text-md-left" style="padding: 10px;">
-                        Total Price
+                        {{__('cart_index.totalPrice')}}
                     </div>
                     <div class="col text-md-right" style="padding: 10px">@if(\Illuminate\Support\Facades\Session::has('cart'))
                             <p><strong>{{ number_format($cart->totalPrice).' VND' }}</strong></p>@endif</div>
                 </div>
                 <div class="row" style="padding: 10px;">
                     <div class="col-md-2">
-                        <a href="{{ route('home.check-out') }}" class="btn btn-danger" style="width: 300px">Check Out</a>                    </div>
+                        <a href="{{ route('home.check-out') }}" class="btn btn-danger" style="width: 300px">{{__('cart_index.checkOut')}}</a>                    </div>
                 </div>
             </div>
 

@@ -1,16 +1,16 @@
 @extends("layouts.home")
 @section("home")
     <div class="container">
-        <h1>My list Bill</h1>
+        <h1>{{__('my_bills.myBills')}}</h1>
 
         <div class="row justify-content-center">
             <table class="table">
                 <thead class="table-success ">
-                <th scope="col">Bill Code</th>
-                <th scope="col">Pay Date</th>
-                <th scope="col">Product</th>
-                <th scope="col">Total Price</th>
-                <th scope="col">Status</th>
+                <th scope="col">{{__('my_bills.billCode')}}</th>
+                <th scope="col">{{__('my_bills.payDate')}}</th>
+                <th scope="col">{{__('my_bills.product')}}</th>
+                <th scope="col">{{__('my_bills.totalPrice')}}</th>
+                <th scope="col">{{__('my_bills.Status')}}</th>
                 </thead>
                 <tbody>
                 @foreach($bills as $bill)

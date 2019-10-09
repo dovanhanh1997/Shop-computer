@@ -76,7 +76,7 @@ class BillService implements BillServiceInterface
 
         $bills = $this->billRepository->getAll();
         foreach ($bills as $bill) {
-            $billId = mt_rand(0, 100);
+            $billId = mt_rand(1, 100);
             if ($billId !== $bill->id) {
                 return $billId;
             }

@@ -6,6 +6,7 @@ namespace App\Repositories\impl;
 
 use App\Product;
 use App\Repositories\ProductRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -62,5 +63,12 @@ class ProductRepository implements ProductRepositoryInterface
     public function getPaginate($number)
     {
         return $this->product->setPerPage($number);
+    }
+
+    public function findByKey($keySearch)
+    {
+        return
+            DB::table('products')->orWhere('productName', 'like',
+                '%' . $keySearch . '%')->get();
     }
 }

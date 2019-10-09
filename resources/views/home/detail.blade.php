@@ -1,37 +1,53 @@
 @extends("layouts.home")
 @section("home")
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 mb-4">
-                <div class=>
-                    <img src="{{ asset('storage/'.$product->image) }}" alt="" width="500px">
-                </div>
-            </div>
 
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-header">
-                        <strong><h2>{{ $product->productName }}</h2></strong>
+
+    <div class="container">
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active" id="pic-1"><img src="{{ asset('storage/'.$product->image) }}"/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5><p>Price: {{ number_format($product->productPrice).' VND' }}</p>
-                        </h5>
-                        <form action="{{ route('changeCart', $product->id) }}" method="post">
-                            @csrf
-                            <br>
-                                <div class="pr-3">
-                                    <button type="submit" class="btn btn-success">Add to Cart</button>
-                                </div>
-                            <br>
-                        </form>
+                    <div class="details col-md-6">
+                        <h3 class="product-title">{{ $product->productName }}</h3>
+                        <div class="rating">
+                            <div class="stars">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                            <span class="review-no">41 {{ __('user_home.reviews') }}</span>
+                        </div>
+                        <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium
+                            cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
+                        <h4 class="price">{{ __('user_home.currentPrice') }}: <span>{{ number_format($product->productPrice) }}</span> VND</h4>
+                        <p class="vote"><strong>91%</strong> {{__('user_home.detailComment')}} <strong>(87 {{__('user_home.votes')}})</strong>
+                        </p>
+                        <div class="action">
+                            <div class="d-flex">
+                                <form method="post" action="{{ route('changeCart', $product->id) }}">
+                                    @csrf
+                                    <button class="add-to-cart btn btn-default" type="submit">{{ __('user_home.addToCart') }}</button>
+                                </form>
+                                <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span>
+                                </button>
+                            </div>
+                            </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
 @endsection
 
-
-<script>
-
-</script>

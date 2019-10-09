@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BillServiceInterface;
+use App\Services\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,10 +15,16 @@ class ShopBillController extends Controller
      * @var BillServiceInterface
      */
     private $billService;
+    /**
+     * @var UserServiceInterface
+     */
+    private $userService;
 
-    public function __construct(BillServiceInterface $billService)
+    public function __construct(BillServiceInterface $billService,
+                                UserServiceInterface $userService)
     {
         $this->billService = $billService;
+        $this->userService = $userService;
     }
 
     public function index()
@@ -28,12 +35,15 @@ class ShopBillController extends Controller
 
     public function storeBill(Request $request)
     {
+
         $this->billService->create($request);
         return redirect()->route('shopBill.getBill');
     }
 
     public function getMyBill()
     {
+        $user = $this->userService->findById(Auth::user()->id);
+        if (!$user->profile) return redirect()->route('home.user.registerProfile');
         $bills = $this->billService->findByUserId(Auth::user()->id);
         return view('home.bill.myBill', compact('bills'));
     }
@@ -42,8 +52,8 @@ class ShopBillController extends Controller
     {
         $bill = $this->billService->findById($billId);
         $billProducts = DB::table('bills_products')
-            ->where('bill_id',$billId)
+            ->where('bill_id', $billId)
             ->get();
-        return view('home.bill.detail',compact('bill','billProducts'));
+        return view('home.bill.detail', compact('bill', 'billProducts'));
     }
 }
