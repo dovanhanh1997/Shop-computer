@@ -18,6 +18,19 @@ Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
+Route::prefix('admin')->group(function (){
+    Route::get('/','AdminController@index')->name('admin.admin-home')->middleware('auth:admin');
+    Route::get('/login','AdminController@showLoginForm')->name('admin.showLoginForm');
+    Route::post('/login','AdminController@login')->name('admin.loginSubmit');
+
+});
+
+
+Route::resource('users', 'UserController');
+Route::resource('bills', 'BillController');
+Route::resource('products', 'ProductController');
+
+
 Route::middleware('lang')->prefix('home')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/detail/{id}', 'HomeController@detail')->name('home.detail');
@@ -48,9 +61,4 @@ Route::middleware('lang')->prefix('mail')->group(function (){
 
 Route::post('/change-lang','LangController@changeLang')->name('changeLang');
 
-
-
-Route::resource('users', 'UserController');
-Route::resource('bills', 'BillController');
-Route::resource('products', 'ProductController');
 

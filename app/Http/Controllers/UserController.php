@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequestForm;
 use App\Services\UserServiceInterface;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -61,6 +62,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->userService->findById($id);
+
         return view('admin.user.show', compact('user'));
     }
 

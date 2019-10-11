@@ -6,6 +6,7 @@ use App\Services\BillServiceInterface;
 use App\Services\CartServiceInterface;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
