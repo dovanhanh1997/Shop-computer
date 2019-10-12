@@ -23,8 +23,8 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+            <a class="navbar-brand" href="{{ route('admin.admin-home') }}">
+                ADMIN Dashboard
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -35,56 +35,60 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ 'User' }} <span class="caret"></span>
-                        </a>
+                    @if(\Illuminate\Support\Facades\Auth::guard('admin')->check())
+                        @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ 'User' }} <span class="caret"></span>
+                                </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('users.index') }}">
-                                {{ 'List' }}
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('users.index') }}">
+                                        {{ 'List' }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('users.create') }}">
+                                        {{ 'Create User' }}
+                                    </a>
+                                </div>
+                            </li>
+                        @endif
+
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ 'Bill' }} <span class="caret"></span>
                             </a>
 
-                            <a class="dropdown-item" href="{{ route('users.create') }}">
-                                {{ 'Create User' }}
-                            </a>
-                        </div>
-                    </li>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('bills.index') }}">
+                                    {{ 'List' }}
+                                </a>
 
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ 'Bill' }} <span class="caret"></span>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('bills.index') }}">
-                                {{ 'List' }}
-                            </a>
-
-                            <a class="dropdown-item" href="{{ route('bills.create') }}">
-                                {{ 'Create Bill' }}
-                            </a>
-                        </div>
+                                <a class="dropdown-item" href="{{ route('bills.create') }}">
+                                    {{ 'Create Bill' }}
+                                </a>
+                            </div>
 
 
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ 'Product' }} <span class="caret"></span>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('products.index') }}">
-                                {{ 'List' }}
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ 'Product' }} <span class="caret"></span>
                             </a>
 
-                            <a class="dropdown-item" href="{{ route('products.create') }}">
-                                {{ 'Create Product' }}
-                            </a>
-                        </div>
-                    </li>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('products.index') }}">
+                                    {{ 'List' }}
+                                </a>
+
+                                <a class="dropdown-item" href="{{ route('products.create') }}">
+                                    {{ 'Create Product' }}
+                                </a>
+                            </div>
+                        </li>
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -113,7 +117,7 @@
                                     {{ __('Logout') }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                <form id="logout-form" action="{{ route('admin.logoutSubmit') }}" method="POST"
                                       style="display: none;">
                                     @csrf
                                 </form>

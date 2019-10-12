@@ -3,19 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequestForm;
+use App\Repositories\impl\AdminService;
+use App\Services\AdminServiceInterface;
+use App\Services\BillServiceInterface;
+use App\Services\ProductServiceInterface;
+use App\Services\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
-    public function __construct()
+    /**
+     * @var UserServiceInterface
+     */
+    private $userService;
+    /**
+     * @var ProductServiceInterface
+     */
+    private $productService;
+    /**
+     * @var BillServiceInterface
+     */
+    private $billService;
+    /**
+     * @var \AdminServiceInterface
+     */
+    private $adminService;
+
+    public function __construct(AdminService $adminService)
     {
 //        $this->middleware('auth:admin');
+
+        $this->adminService = $adminService;
     }
 
     public function index()
     {
-        return view('admin.admin-home');
+        $adminRoles = $this->adminService->getAdminRoles();
+        $data = $this->adminService->getAll();
+//        dd($adminRoles);
+        return view('admin.admin-home',compact('data','adminRoles'));
     }
 
     public function showLoginForm()
@@ -28,9 +56,22 @@ class AdminController extends Controller
         if (Auth::guard('admin')->attempt([
             'email' => $request->email,
             'password' => $request->password,
-        ])){
+        ])) {
             return redirect()->route('admin.admin-home');
         }
         return redirect()->route('admin.showLoginForm');
+    }
+
+
+    public function logout(Request $request)
+    {
+        Auth::guard('admin')->logout();
+
+        return $this->loggedOut($request) ?: redirect('/admin/login');
+    }
+
+    protected function loggedOut(Request $request)
+    {
+        //
     }
 }

@@ -1,108 +1,116 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/detailProduct.css') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/home.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <title>Document</title>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ route('home') }}">Shop Laptop</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('shopBill.getBill')}}">{{ __('layout_home.MyBill') }}</a>
-            </li>
-            <form id="lang-form" action="{{ route('changeLang') }}" method="post"
-                  onchange="document.getElementById('lang-form').submit()">
-                @csrf
-
-                <select name="lang" id="" >
-                    <option value="">{{ __('layout_home.language') }}</option>
-                    <option value="vi">VI</option>
-                    <option value="en">EN</option>
-                </select>
-
-            </form>
-
-        </ul>
-        <form method="post" action="{{ route('home.search') }}" class="form-inline my-2 my-lg-0">
-            @csrf
-            <input name="keySearch" class="form-control mr-sm-2" type="search" placeholder="{{ __('layout_home.searchHolder') }}" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ __('layout_home.search') }}</button>
-        </form>
-        <div class="collapse navbar-collapse">
-            <a href="{{ route('carts.index') }}">
-                <ul class="navbar-nav mr-auto">{{__('layout_home.cart')}} &nbsp;<span>@if(\Illuminate\Support\Facades\Session::has('cart'))
-                            {{ \Illuminate\Support\Facades\Session::get('cart')->totalQty }}@endif</span></ul>
+<div id="app">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                {{ config('app.name', 'Laravel') }}
             </a>
-        </div>
-        <div class="navbar-brand float-right">
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
-                @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
-                        </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('shopBill.getBill') }}">{{ __('layout_home.MyBill') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" action="{{ route('home.search') }}" class="form-inline my-2 my-lg-0">
+                            @csrf
+                            <input name="keySearch" class="form-control mr-sm-2" type="search"
+                                   placeholder="{{ __('layout_home.searchHolder') }}" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0"
+                                    type="submit">{{ __('layout_home.search') }}</button>
+                        </form>
+                    </li>
+
+                    <li class="nav-item">
+                        <form action="{{ route('changeLang') }}" method="post"
+                              onchange="document.getElementById('lang-form').submit()">
+                            @csrf
+                            <select name="lang" id="" class="form-control">
+                                <option value="">{{ __('layout_home.language') }}</option>
+                                <option value="vi">VI</option>
+                                <option value="en">EN</option>
+                            </select>
+
+                        </form>
+                    </li>
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Authentication Links -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('carts.index') }}">
+                                <span>{{__('layout_home.cart')}} &nbsp;<span>@if(\Illuminate\Support\Facades\Session::has('cart'))
+                                            {{ \Illuminate\Support\Facades\Session::get('cart')->totalQty }}@endif</span></span>
+                        </a>
+                    </li>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                  style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                @endguest
-            </ul>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
+            </div>
         </div>
-    </div>
+    </nav>
 
-
-</nav>
-
-<div>
-    <!--Section: Products v.3-->
-    @yield("home")
+    <main class="py-4">
+        @yield('home')
+    </main>
 </div>
 </body>
 </html>
-

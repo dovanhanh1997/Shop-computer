@@ -65,7 +65,7 @@
                 </div>
                 <div class="row" style="padding: 10px;">
                     <div class="col-md-2">
-                        <a href="{{ route('home.check-out') }}" class="btn btn-danger" style="width: 300px">{{__('cart_index.checkOut')}}</a>                    </div>
+                        <a href="/home/check-out" class="btn btn-danger" style="width: 300px">{{__('cart_index.checkOut')}}</a>                    </div>
                 </div>
             </div>
 

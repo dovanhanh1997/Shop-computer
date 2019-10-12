@@ -1,4 +1,4 @@
-@extends("layouts.check-out")
+@extends("layouts.home")
 @section("home")
     <div class="container">
         <div class="py-5 text-center">

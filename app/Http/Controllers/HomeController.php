@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Services\BillServiceInterface;
 use App\Services\CartServiceInterface;
 use App\Services\ProductServiceInterface;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
@@ -29,6 +31,8 @@ class HomeController extends Controller
         $this->productService = $productService;
         $this->cartService = $cartService;
         $this->billService = $billService;
+//        $this->middleware('auth',
+//            ['except' => ['index', 'detail', 'search']]);
     }
 
 

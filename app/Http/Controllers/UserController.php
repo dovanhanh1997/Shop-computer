@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function __construct(UserServiceInterface $userService)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
         $this->userService = $userService;
     }
 
@@ -62,7 +62,6 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->userService->findById($id);
-
         return view('admin.user.show', compact('user'));
     }
 

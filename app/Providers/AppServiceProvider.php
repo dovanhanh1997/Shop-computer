@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\AdminRepositoryInterface;
 use App\Repositories\BillRepositoryInterface;
 use App\Repositories\CartRepositoryInterface;
 use App\Repositories\CustomerRepositoryInterface;
+use App\Repositories\impl\AdminRepository;
+use App\Repositories\impl\AdminService;
 use App\Repositories\impl\BillRepository;
 use App\Repositories\impl\CartRepository;
 use App\Repositories\impl\CustomerRepository;
@@ -44,12 +47,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UserRepositoryInterface::class,
             UserRepository::class);
 
-        $this->app->singleton(CustomerRepositoryInterface::class,
-            CustomerRepository::class);
-
-        $this->app->singleton(CustomerServiceInterface::class,
-            CustomerService::class);
-
         $this->app->singleton(BillRepositoryInterface::class,
             BillRepository::class);
 
@@ -73,6 +70,11 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(ProfileRepositoryInterface::class,
             ProfileRepository::class);
+
+        $this->app->singleton(\AdminServiceInterface::class,
+            AdminService::class);
+        $this->app->singleton(AdminRepositoryInterface::class,
+            AdminRepository::class);
     }
 
     /**
