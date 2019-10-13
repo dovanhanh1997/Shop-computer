@@ -12,4 +12,7 @@ interface AdminServiceInterface
 
     public function getAllRole(array $idRoles);
 
+    public function getAdminRole();
+
+
 }

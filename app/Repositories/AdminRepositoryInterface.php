@@ -6,5 +6,7 @@ namespace App\Repositories;
 
 interface AdminRepositoryInterface
 {
-    public function getRole();
+    public function getAdminRoles();
+
+    public function getRoles();
 }

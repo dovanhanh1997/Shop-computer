@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function __construct(ProductServiceInterface $productService)
     {
-        $this->middleware('auth:admin');
+        $this->middleware(['auth:admin','role:init_manage|admin']);
         $this->productService = $productService;
     }
 

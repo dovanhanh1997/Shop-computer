@@ -168,7 +168,7 @@ return [
          * Package Service Providers...
          */
 
-//        \Spatie\Permission\Models\Permission::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,7 +229,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Permission' =>  Spatie\Permission\PermissionServiceProvider::class,
+        'Permission' => Spatie\Permission\PermissionServiceProvider::class,
+        'Socialite' => Laravel\Socialite\SocialiteServiceProvider::class,
+
     ],
 
 ];

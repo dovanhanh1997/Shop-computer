@@ -13,7 +13,7 @@ class ProfilesSeeder extends Seeder
     {
         $profile = new \App\Profile();
         $profile->user_id   = 1;
-        $profile->profileFullName = 'Admin';
+        $profile->profileFullName = 'Thi Hong';
         $profile->profilePhone = '12345678';
         $profile->image = null;
         $profile->save();

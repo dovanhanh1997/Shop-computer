@@ -9,6 +9,8 @@ use App\Repositories\AdminRepositoryInterface;
 use App\Services\BillServiceInterface;
 use App\Services\ProductServiceInterface;
 use App\Services\UserServiceInterface;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
 
 class AdminService implements AdminServiceInterface
@@ -53,7 +55,7 @@ class AdminService implements AdminServiceInterface
 
     public function getAdminRoles()
     {
-        $roleData = $this->adminRepository->getRole();
+        $roleData = $this->adminRepository->getAdminRoles();
         $idModels = [];
         $idRoles = [];
         foreach ($roleData as $key => $value) {
@@ -66,6 +68,7 @@ class AdminService implements AdminServiceInterface
 
         $adminRole = [];
         for ($i = 0; $i < count($admins); $i++) {
+            if ($admins[$i] == Auth::user()->name) Session::put('role', $roles[$i]);
             $adminRole[$admins[$i]] = $roles[$i];
         }
         return $adminRole;
@@ -92,9 +95,23 @@ class AdminService implements AdminServiceInterface
         foreach ($idRoles as $id) {
 //            dd($id);
             $role = Role::findById($id);
-            $roleName = str_replace("_"," ",strtoupper($role->name));
-            array_push($roles, [$roleName,$role->objManage]);
+            $roleName = str_replace("_", " ", strtoupper($role->name));
+            array_push($roles, [$roleName, $role->objManage]);
         }
         return $roles;
+    }
+
+    public function getAdminRole()
+    {
+        $roles = $this->adminRepository->getRoles();
+        foreach ($roles as $role) {
+            $roleName = $this->upperStringRole($role->name);
+            if ($roleName == Session::get('role')[0]) Session::put('objManage', $this->upperStringRole($role->objManage));
+        }
+    }
+
+    public function upperStringRole($string)
+    {
+        return str_replace("_", " ", strtoupper($string));
     }
 }

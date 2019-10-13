@@ -17,7 +17,7 @@ class BillController extends Controller
 
     public function __construct(BillServiceInterface $billService)
     {
-        $this->middleware('auth:admin');
+        $this->middleware(['auth:admin','role:admin|invoice_manage']);
 
         $this->billService = $billService;
     }

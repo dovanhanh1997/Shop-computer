@@ -10,6 +10,7 @@ use App\Services\ProductServiceInterface;
 use App\Services\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
@@ -42,7 +43,7 @@ class AdminController extends Controller
     {
         $adminRoles = $this->adminService->getAdminRoles();
         $data = $this->adminService->getAll();
-//        dd($adminRoles);
+        $this->adminService->getAdminRole();
         return view('admin.admin-home',compact('data','adminRoles'));
     }
 
@@ -66,7 +67,7 @@ class AdminController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
-
+        Session::flush();
         return $this->loggedOut($request) ?: redirect('/admin/login');
     }
 

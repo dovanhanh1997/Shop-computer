@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class AdminRepository implements AdminRepositoryInterface
 {
-    public function getRole()
+    public function getAdminRoles()
     {
-       $data = DB::table('model_has_roles')->get();
+        $data = DB::table('model_has_roles')->get();
+        return $data;
+    }
+
+    public function getRoles()
+    {
+        $data = DB::table('roles')->get();
         return $data;
     }
 }

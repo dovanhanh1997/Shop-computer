@@ -54,12 +54,14 @@
                                 <tr>
                                     <td>{{ $key }}</td>
                                     <td>{{ $value[0]->count() }} <small>{{ $value[1] }}</small></td>
-                                    @if($key == 'USER')
-                                        @if(Auth::user()->hasRole('admin'))
-                                            <td><a href="" class="btn btn-secondary">Detail</a></td>
+                                    @if(! Auth::user()->hasRole('admin'))
+                                        @if($key == \Illuminate\Support\Facades\Session::get('objManage'))
+                                            <td><a href="{{ route("$value[1]s.index") }}"
+                                                   class="btn btn-secondary">Detail</a></td>
                                         @endif
                                     @else
-                                        <td><a href="" class="btn btn-secondary">Detail</a></td>
+                                        <td><a href="{{ route("$value[1]s.index") }}"
+                                               class="btn btn-secondary">Detail</a></td>
                                     @endif
                                 </tr>
                             @endforeach

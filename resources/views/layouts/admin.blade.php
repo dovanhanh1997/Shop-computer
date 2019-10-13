@@ -35,66 +35,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    @if(\Illuminate\Support\Facades\Auth::guard('admin')->check())
-                        @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ 'User' }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('users.index') }}">
-                                        {{ 'List' }}
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('users.create') }}">
-                                        {{ 'Create User' }}
-                                    </a>
-                                </div>
-                            </li>
-                        @endif
-
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ 'Bill' }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('bills.index') }}">
-                                    {{ 'List' }}
-                                </a>
-
-                                <a class="dropdown-item" href="{{ route('bills.create') }}">
-                                    {{ 'Create Bill' }}
-                                </a>
-                            </div>
-
-
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ 'Product' }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('products.index') }}">
-                                    {{ 'List' }}
-                                </a>
-
-                                <a class="dropdown-item" href="{{ route('products.create') }}">
-                                    {{ 'Create Product' }}
-                                </a>
-                            </div>
+                    @if(Session::has('role'))
+                        <li class="nav-item">
+                            <div class="navbar">Role: {{ Session::get('role')[0] }}</div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="navbar">OBJ Manage: {{ Session::get('objManage') }}</div>
                         </li>
                     @endif
+
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
-                    @guest
+                    @if(! Auth::guard('admin')->check())
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
@@ -123,7 +78,7 @@
                                 </form>
                             </div>
                         </li>
-                    @endguest
+                    @endif
                 </ul>
             </div>
         </div>

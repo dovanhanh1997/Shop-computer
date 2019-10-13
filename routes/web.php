@@ -61,4 +61,7 @@ Route::middleware('lang')->prefix('mail')->group(function () {
 
 Route::post('/change-lang', 'LangController@changeLang')->name('changeLang');
 
-
+Route::get('/login/github/oauth/authorize','SocialiteController@redirectToGithubProvider')->name('home.login.github');
+Route::get('/login/github/oauth/callback','SocialiteController@handleGithubProviderCallBack');
+Route::get('/login/facebook/oauth/authorize','SocialiteController@redirectToFacebookProvider')->name('home.login.facebook');
+Route::get('/login/facebook/oauth/callback','SocialiteController@handleFacebookProviderCallBack');
