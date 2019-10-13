@@ -29,6 +29,7 @@ use App\Services\impl\UserService;
 use App\Services\ProductServiceInterface;
 use App\Services\ProfileServiceInterface;
 use App\Services\UserServiceInterface;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\Resource;
 
@@ -71,7 +72,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ProfileRepositoryInterface::class,
             ProfileRepository::class);
 
-        $this->app->singleton(\AdminServiceInterface::class,
+        $this->app->singleton(AdminServiceInterface::class,
             AdminService::class);
         $this->app->singleton(AdminRepositoryInterface::class,
             AdminRepository::class);
@@ -84,6 +85,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        Resource::withoutWrapping();
     }
 }

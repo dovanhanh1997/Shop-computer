@@ -22,7 +22,7 @@ class SocialiteController extends Controller
 
         Auth::login($githubUser, true);
 
-        return redirect('/');
+        return redirect('/home');
 
     }
 
@@ -45,13 +45,14 @@ class SocialiteController extends Controller
 
     public function handleFacebookProviderCallBack()
     {
+        dd(1);
         $user = Socialite::driver('facebook')->user();
         dd($user);
         $facebookUser = $this->findOrCreateUser($user);
 
         Auth::login($facebookUser, true);
 
-        return redirect('/');
+        return redirect('/home');
 
     }
 }
