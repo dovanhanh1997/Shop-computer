@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\AdminRequestForm;
 use App\Repositories\impl\AdminService;
@@ -9,6 +9,7 @@ use App\Services\BillServiceInterface;
 use App\Services\ProductServiceInterface;
 use App\Services\UserServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;

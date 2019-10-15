@@ -19,10 +19,14 @@ Route::get('/', 'HomeController@index');
 Auth::routes();
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', 'AdminController@index')->name('admin.admin-home')->middleware('auth:admin');
-    Route::get('/login', 'AdminController@showLoginForm')->name('admin.showLoginForm');
-    Route::post('/login', 'AdminController@login')->name('admin.loginSubmit');
-    Route::post('/logout','AdminController@logout')->name('admin.logoutSubmit');
+    Route::get('/', 'Admin\AdminController@index')->name('admin.admin-home')->middleware('auth:admin');
+    Route::get('/login', 'Admin\AdminController@showLoginForm')->name('admin.showLoginForm');
+    Route::post('/login', 'Admin\AdminController@login')->name('admin.loginSubmit');
+    Route::post('/logout', 'Admin\AdminController@logout')->name('admin.logoutSubmit');
+    Route::post('/password/email', 'Admin\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+    Route::get('/password/reset', 'Admin\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.showRequestForm');
+    Route::post('/password/reset', 'Admin\AdminResetPasswordController@reset')->name('admin.password.reset');
+    Route::get('/password/reset/{token}', 'Admin\AdminResetPasswordController@showResetForm')->name('admin.password.showResetForm');
 });
 
 
@@ -32,7 +36,7 @@ Route::resource('products', 'ProductController');
 
 
 Route::middleware('lang')->prefix('home')->group(function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/{id?}', 'HomeController@index')->name('home');
     Route::get('/detail/{id}', 'HomeController@detail')->name('home.detail');
     Route::post('/search', 'HomeController@search')->name('home.search');
     Route::get('/check-out', 'HomeController@checkOut')->name('home.check-out')->middleware('auth');
@@ -61,7 +65,7 @@ Route::middleware('lang')->prefix('mail')->group(function () {
 
 Route::post('/change-lang', 'LangController@changeLang')->name('changeLang');
 
-Route::get('/login/github/oauth/authorize','SocialiteController@redirectToGithubProvider')->name('home.login.github');
-Route::get('/login/github/oauth/callback','SocialiteController@handleGithubProviderCallBack');
-Route::get('/login/facebook/oauth/authorize','SocialiteController@redirectToFacebookProvider')->name('home.login.facebook');
-Route::get('/login/facebook/oauth/callback','SocialiteController@handleFacebookProviderCallBack');
+Route::prefix('login')->group(function () {
+    Route::get('/{social}', 'SocialiteController@redirectToProvider');
+    Route::get('/{social}/callback', 'SocialiteController@handleProviderCallBack');
+});

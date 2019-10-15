@@ -28,8 +28,11 @@ class CartController extends Controller
 
     public function index()
     {
+        if (!$this->cartService->checkAnyProductInCart()) return back();
+
         $cart = $this->cartService->getCart();
         $products = $this->cartService->getProduct();
+
         return view('home.cart.index', compact('cart', 'products', 'productQty'));
     }
 
@@ -50,4 +53,6 @@ class CartController extends Controller
 
         return redirect()->back();
     }
+
+
 }

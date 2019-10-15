@@ -19,4 +19,7 @@ interface CartServiceInterface
     public function updateOrDeleteCart($product, $request);
 
     public function deleteProductInCart($product);
+
+    public function checkAnyProductInCart();
+
 }

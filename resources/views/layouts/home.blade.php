@@ -69,20 +69,23 @@
                     <!-- Authentication Links -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('carts.index') }}">
-                                <span>{{__('layout_home.cart')}} &nbsp;<span>@if(\Illuminate\Support\Facades\Session::has('cart'))
-                                            {{ \Illuminate\Support\Facades\Session::get('cart')->totalQty }}@endif</span></span>
+                                <span>{{__('layout_home.cart')}} &nbsp;<span>@if(Session::has('cart'))
+                                            {{ Session::get('cart')->totalQty }}@endif</span></span>
                         </a>
+                        @if(\Illuminate\Support\Facades\Session::has('noProductInCart'))
+                            <small>{{ \Illuminate\Support\Facades\Session::get('noProductInCart') }}</small>
+                        @endif
                     </li>
-                    @guest
+                    @if(! Auth::guard('web')->check())
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+{{--                        @dd('Not Login')--}}
                     @else
+{{--                        @dd(Auth::user()->name)--}}
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -102,7 +105,7 @@
                                 </form>
                             </div>
                         </li>
-                    @endguest
+                    @endif
                 </ul>
             </div>
         </div>

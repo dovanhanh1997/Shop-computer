@@ -73,4 +73,11 @@ class CartService implements CartServiceInterface
         $this->putCartIntoSession('cart', $cart);
 
     }
+
+    public function checkAnyProductInCart()
+    {
+        if (Session::has('cart')) return true;
+        Session::flash('noProductInCart','No product in Cart');
+        return false;
+    }
 }

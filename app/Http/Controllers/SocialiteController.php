@@ -9,50 +9,36 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
-    public function redirectToGithubProvider()
+    public function redirectToProvider($social)
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver($social)->redirect();
     }
 
-    public function handleGithubProviderCallBack()
+    public function handleProviderCallBack($social)
     {
-        $user = Socialite::driver('github')->user();
+        $user = Socialite::driver($social)->stateless()->user();
+        $socialUser = $this->findOrCreateUser($user);
 
-        $githubUser = $this->findOrCreateUser($user);
-
-        Auth::login($githubUser, true);
-
-        return redirect('/home');
-
+        Auth::login($socialUser, true);
+        $userId = $user->id;
+        return redirect("https://shop.local/home/$userId");
     }
 
-    public function findOrCreateUser($user)
+    public function findOrCreateUser($socialUser)
     {
-        if (User::find($user->id)) return User::find($user->id);
+        if (User::find($socialUser->id)) return User::find($socialUser->id);
+        $socialName = null;
+        if ($socialUser->nickname) {
+            $socialName = $socialUser->nickname;
+        } else if ($socialUser->name) {
+            $socialName = $socialUser->name;
+        }
+        $newUser = new User();
+        $newUser->id = $socialUser->id;
+        $newUser->name = $socialName;
+        $newUser->save();
 
-        return User::create([
-            'id' => $user->id,
-            'name' => $user->nickname,
-            'email' => $user->email,
-        ]);
+        return $newUser;
     }
 
-
-    public function redirectToFacebookProvider()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    public function handleFacebookProviderCallBack()
-    {
-        dd(1);
-        $user = Socialite::driver('facebook')->user();
-        dd($user);
-        $facebookUser = $this->findOrCreateUser($user);
-
-        Auth::login($facebookUser, true);
-
-        return redirect('/home');
-
-    }
 }

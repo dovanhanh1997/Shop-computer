@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BillServiceInterface;
+use App\Services\MailServiceInterface;
 use App\Services\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,12 +20,18 @@ class ShopBillController extends Controller
      * @var UserServiceInterface
      */
     private $userService;
+    /**
+     * @var MailServiceInterface
+     */
+    private $mailService;
 
     public function __construct(BillServiceInterface $billService,
-                                UserServiceInterface $userService)
+                                UserServiceInterface $userService,
+                                MailServiceInterface $mailService)
     {
         $this->billService = $billService;
         $this->userService = $userService;
+        $this->mailService = $mailService;
     }
 
     public function index()
@@ -35,8 +42,13 @@ class ShopBillController extends Controller
 
     public function storeBill(Request $request)
     {
-
         $this->billService->create($request);
+
+        $bill = $this->mailService->getBill();
+        $billProducts = $this->mailService->getBillsProducts(Session::get('billId'));
+        dd($billProducts);
+        $this->mailService->sendMailToAdmin($bill, $billProducts);
+
         return redirect()->route('mail.form');
     }
 
@@ -51,9 +63,7 @@ class ShopBillController extends Controller
     public function getBillDetail($billId)
     {
         $bill = $this->billService->findById($billId);
-        $billProducts = DB::table('bills_products')
-            ->where('bill_id', $billId)
-            ->get();
+        $billProducts = $this->mailService->getBillsProducts($billId);
         return view('home.bill.detail', compact('bill', 'billProducts'));
     }
 }

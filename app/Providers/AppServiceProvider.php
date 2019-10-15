@@ -23,9 +23,11 @@ use App\Services\CustomerServiceInterface;
 use App\Services\impl\BillService;
 use App\Services\impl\CartService;
 use App\Services\impl\CustomerService;
+use App\Services\impl\MailService;
 use App\Services\impl\ProductService;
 use App\Services\impl\ProfileService;
 use App\Services\impl\UserService;
+use App\Services\MailServiceInterface;
 use App\Services\ProductServiceInterface;
 use App\Services\ProfileServiceInterface;
 use App\Services\UserServiceInterface;
@@ -76,6 +78,9 @@ class AppServiceProvider extends ServiceProvider
             AdminService::class);
         $this->app->singleton(AdminRepositoryInterface::class,
             AdminRepository::class);
+
+        $this->app->singleton(MailServiceInterface::class,
+            MailService::class);
     }
 
     /**

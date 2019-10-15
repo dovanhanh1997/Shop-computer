@@ -75,9 +75,9 @@
                     </div>
                 </div>
                 <div class="d-flex">
-                    <div class="pr-5"><a class="btn btn-primary" href="{{ route('home.login.github') }}">Github</a>
+                    <div class="pr-5"><a class="btn btn-primary" href="/login/github">Github</a>
                     </div>
-                    <div class="pr-5"><a class="btn btn-primary" href="{{ route('home.login.facebook') }}">Facebook</a>
+                    <div class="pr-5"><a class="btn btn-primary" href="/login/facebook">Facebook</a>
                     </div>
                 </div>
             </div>

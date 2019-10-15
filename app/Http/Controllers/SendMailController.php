@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendMail;
 use App\Services\BillServiceInterface;
+use App\Services\MailServiceInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail as MailData;
@@ -16,10 +17,14 @@ class SendMailController extends Controller
      * @var BillServiceInterface
      */
     private $billService;
+    /**
+     * @var MailServiceInterface
+     */
+    private $mailService;
 
-    public function __construct(BillServiceInterface $billService)
+    public function __construct(MailServiceInterface $mailService)
     {
-        $this->billService = $billService;
+        $this->mailService = $mailService;
     }
 
     public function form()
@@ -29,12 +34,10 @@ class SendMailController extends Controller
 
     public function sendMail(Request $request)
     {
-        $billId = Session::get('billId');
-        $bill = $this->billService->findById($billId);
-        $billProducts = DB::table('bills_products')
-            ->where('bill_id', $billId)
-            ->get();
-        Mail::to($request->user)->send(new SendMail($bill,$billProducts));
+        $bill = $this->mailService->getBill();
+        $billProducts = $this->mailService->getBillsProducts();
+
+        $this->mailService->sendMailToUser($request, $bill, $billProducts);
 
         $this->clearSession();
         return redirect()->back();
@@ -42,7 +45,6 @@ class SendMailController extends Controller
 
     public function clearSession(): void
     {
-        Session::put('cart', null);
-        Session::put('billId', null);
+        Session::flush();
     }
 }
