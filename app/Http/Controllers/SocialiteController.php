@@ -21,7 +21,7 @@ class SocialiteController extends Controller
 
         Auth::login($socialUser, true);
         $userId = $user->id;
-        return redirect("/home/$userId");
+        return redirect("/home/login/$userId");
     }
 
     public function findOrCreateUser($socialUser)
