@@ -33,7 +33,7 @@ class CartController extends Controller
         $cart = $this->cartService->getCart();
         $products = $this->cartService->getProduct();
 
-        return view('home.cart.index', compact('cart', 'products', 'productQty'));
+        return view('home.cart.index', compact('cart', 'products'));
     }
 
     public function changeCart(Request $request, $productId)
