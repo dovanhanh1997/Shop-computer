@@ -10,7 +10,7 @@
                         <div class="col" style="border: 1px solid #494f54">
                             <div class="row">
                                 <div class="col" style="padding: 20px">
-                                    <img src="{{ asset('storage/'.$product['product']->image) }}" alt="" width="100px">
+                                    <img src="{{ $product['product']->image }}" alt="" width="100px">
                                 </div>
                                 <div class="col">
                                     <p>{{ $product['product']->productName }}</p>

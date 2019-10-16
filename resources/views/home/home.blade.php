@@ -15,7 +15,7 @@
                         <!--Card image-->
                         <div class="view overlay">
                             <a href="{{ route('home.detail',$product->id) }}"> <img
-                                    src="{{ asset('storage/'.$product->image) }}" alt="" width="200px"
+                                    src="{{ $product->image}}" alt="" width="200px"
                                     height="200px">
                             </a>
                         </div>

@@ -4,6 +4,7 @@
 namespace App\Repositories\impl;
 
 use App\Admin;
+use App\RoleV2;
 use App\Services\AdminServiceInterface;
 use App\Repositories\AdminRepositoryInterface;
 use App\Services\BillServiceInterface;
@@ -93,11 +94,11 @@ class AdminService implements AdminServiceInterface
         $roles = [];
 
         foreach ($idRoles as $id) {
-//            dd($id);
-            $role = Role::findById($id);
+            $role = RoleV2::findById($id);
             $roleName = str_replace("_", " ", strtoupper($role->name));
             array_push($roles, [$roleName, $role->objManage]);
         }
+
         return $roles;
     }
 

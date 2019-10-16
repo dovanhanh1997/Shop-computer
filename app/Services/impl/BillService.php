@@ -35,7 +35,7 @@ class BillService implements BillServiceInterface
         $bill->id = $billId;
         $bill->user_id = Auth::user()->id;
         $bill->billPrice = Session::get('cart')->totalPrice;
-        $bill->payDate = date('Y:m:d');
+        $bill->payDate = date('Y-m-d');
         $bill->billAddress = $request->billAddress;
         $bill->billDistric = $request->billDistric;
         $bill->billCity = $request->billCity;

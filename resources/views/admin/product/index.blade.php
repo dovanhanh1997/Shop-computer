@@ -20,7 +20,7 @@
                     <td>{{ 'PD-'.$product->id }}</td>
                     <td>{{ $product->productName }}</td>
                     <td>{{ number_format($product->productPrice) }}</td>
-                    <td><img src="{{ asset('storage/' . $product->image) }}" class="img-thumbnail" alt=""
+                    <td><img src="{{ $product->image }}" class="img-thumbnail" alt=""
                         style="width: 100px"></td>
                     <td>
                         <div class="d-flex">

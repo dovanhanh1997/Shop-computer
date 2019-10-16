@@ -37,7 +37,7 @@
                                     <td>{{ $product->id }}</td>
                                     <td>{{ $product->productName }}</td>
                                     <td>{{ $product->productPrice }}</td>
-                                    <td><img src="{{ asset('storage/' . $product->image) }}" class="img-thumbnail"
+                                    <td><img src="{{ $product->image }}" class="img-thumbnail"
                                              style="width: 100px" alt=""></td>
                                 </tr>
                             @endforeach

@@ -9,7 +9,7 @@
                     <div class="preview col-md-6">
 
                         <div class="preview-pic tab-content">
-                            <div class="tab-pane active" id="pic-1"><img src="{{ asset('storage/'.$product->image) }}"/>
+                            <div class="tab-pane active" id="pic-1"><img src="{{ $product->image }}"/>
                             </div>
                         </div>
                     </div>

@@ -36,7 +36,7 @@ Route::resource('products', 'ProductController');
 
 
 Route::middleware('lang')->prefix('home')->group(function () {
-    Route::get('/{id?}', 'HomeController@index')->name('home');
+    Route::get('/login/{id?}', 'HomeController@index')->name('home');
     Route::get('/detail/{id}', 'HomeController@detail')->name('home.detail');
     Route::post('/search', 'HomeController@search')->name('home.search');
     Route::get('/check-out', 'HomeController@checkOut')->name('home.check-out')->middleware('auth');

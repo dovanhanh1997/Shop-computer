@@ -46,7 +46,6 @@ class ShopBillController extends Controller
 
         $bill = $this->mailService->getBill();
         $billProducts = $this->mailService->getBillsProducts(Session::get('billId'));
-        dd($billProducts);
         $this->mailService->sendMailToAdmin($bill, $billProducts);
 
         return redirect()->route('mail.form');
