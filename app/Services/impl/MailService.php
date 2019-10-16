@@ -45,6 +45,6 @@ class MailService implements MailServiceInterface
 
     public function sendMailToAdmin($bill, $billProducts)
     {
-        return Mail::to('dovanhanh12b@gmail.com')->send(new SendAdminMail($bill, $billProducts));
+        return Mail::to('dovan8704@gmail.com')->send(new SendAdminMail($bill, $billProducts));
     }
 }
