@@ -49,18 +49,21 @@
                                     type="submit">{{ __('layout_home.search') }}</button>
                         </form>
                     </li>
-
                     <li class="nav-item">
-                        <form action="{{ route('changeLang') }}" method="post"
-                              onchange="document.getElementById('lang-form').submit()">
-                            @csrf
-                            <select name="lang" id="" class="form-control">
-                                <option value="">{{ __('layout_home.language') }}</option>
-                                <option value="vi">VI</option>
-                                <option value="en">EN</option>
-                            </select>
-
-                        </form>
+                        <select name="lang" id="" class="form-control" onchange="handleValueSelect(this)">
+                            @if(Session::has('lang'))
+                                @if(Session::get('lang') == 'en')
+                                    <option value="{{ url('lang/en') }}">en</option>
+                                    <option value="{{ url('lang/vi') }}">vi</option>
+                                @else
+                                    <option value="{{ url('lang/vi') }}">vi</option>
+                                    <option value="{{ url('lang/en') }}">en</option>
+                                @endif
+                            @else
+                                <option value="{{ config('app.locale') }}">{{ config('app.locale') }}</option>
+                                <option value="{{ url('lang/vi') }}">vi</option>
+                            @endif
+                        </select>
                     </li>
                 </ul>
 
@@ -83,9 +86,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
-{{--                        @dd('Not Login')--}}
+                        {{--                        @dd('Not Login')--}}
                     @else
-{{--                        @dd(Auth::user()->name)--}}
+                        {{--                        @dd(Auth::user()->name)--}}
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -117,3 +120,10 @@
 </div>
 </body>
 </html>
+
+
+<script>
+    function handleValueSelect(url) {
+        window.location = url.value;
+    }
+</script>

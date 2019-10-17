@@ -1,5 +1,5 @@
 @extends("layouts.home")
-@section('home')
+@section("home")
 
     <section class="text-center mb-4">
 

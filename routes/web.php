@@ -14,9 +14,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index');
-
 Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/lang/{lang}', 'LangController@changeLang');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', 'Admin\AdminController@index')->name('admin.admin-home')->middleware('auth:admin');
@@ -35,8 +37,8 @@ Route::resource('bills', 'BillController');
 Route::resource('products', 'ProductController');
 
 
-Route::middleware('lang')->prefix('home')->group(function () {
-    Route::get('/login/{id?}', 'HomeController@index')->name('home');
+Route::prefix('home')->group(function () {
+    Route::get('/login/{id?}', 'HomeController@index')->name('home.login');
     Route::get('/detail/{id}', 'HomeController@detail')->name('home.detail');
     Route::post('/search', 'HomeController@search')->name('home.search');
     Route::get('/check-out', 'HomeController@checkOut')->name('home.check-out')->middleware('auth');
@@ -46,24 +48,23 @@ Route::middleware('lang')->prefix('home')->group(function () {
 Route::get('/user/register_profile', 'HomeProfileController@registerProfile')->name('home.user.registerProfile');
 Route::post('/user/register_profile', 'HomeProfileController@storeProfile')->name('home.user.storeProfile');
 
-Route::middleware('lang')->prefix('cart')->group(function () {
+Route::prefix('cart')->group(function () {
     Route::get('/', 'CartController@index')->name('carts.index');
     Route::post('/{id}', 'CartController@changeCart')->name('changeCart');
     Route::get('/{id}', 'CartController@delete')->name('deleteCart');
 });
-Route::middleware('lang')->prefix('bill')->group(function () {
+Route::prefix('bill')->group(function () {
     Route::get('/list', 'ShopBillController@index')->name('shopBill.index');
     Route::post('/check-out', 'ShopBillController@storeBill')->name('shopBill.storeBill');
     Route::get('/my-bill', 'ShopBillController@getMyBill')->name('shopBill.getBill')->middleware('auth');
     Route::get('/detail/{billId}', 'ShopBillController@getBillDetail')->name('shopBill.billDetail');
 });
 
-Route::middleware('lang')->prefix('mail')->group(function () {
+Route::prefix('mail')->group(function () {
     Route::get('/', 'SendMailController@form')->name('mail.form');
     Route::post('/send', 'SendMailController@sendMail')->name('mail.send');
 });
 
-Route::post('/change-lang', 'LangController@changeLang')->name('changeLang');
 
 Route::prefix('login')->group(function () {
     Route::get('/{social}', 'SocialiteController@redirectToProvider');

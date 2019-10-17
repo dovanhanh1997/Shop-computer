@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Services\BillServiceInterface;
 use App\Services\CartServiceInterface;
+use App\Services\LangServiceInterface;
 use App\Services\ProductServiceInterface;
 use App\Services\UserServiceInterface;
 use Illuminate\Http\Request;
@@ -28,6 +29,10 @@ class HomeController extends Controller
      * @var UserServiceInterface
      */
     private $userService;
+    /**
+     * @var LangServiceInterface
+     */
+    private $langService;
 
 
     public function __construct(ProductServiceInterface $productService,
@@ -39,14 +44,17 @@ class HomeController extends Controller
         $this->productService = $productService;
         $this->cartService = $cartService;
         $this->billService = $billService;
-//        $this->middleware('auth',
-//            ['except' => ['index', 'detail', 'search']]);
         $this->userService = $userService;
     }
 
 
     public function index($id = null)
     {
+//        if (config('app.locale') == 'en'){
+//            dd(config('app.locale'));
+//        }
+//
+
         if ($id) {
             $user =$this->userService->findById($id);
             Auth::login($user,true);

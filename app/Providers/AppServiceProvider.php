@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\LangController;
 use App\Repositories\AdminRepositoryInterface;
 use App\Repositories\BillRepositoryInterface;
 use App\Repositories\CartRepositoryInterface;
@@ -17,21 +18,26 @@ use App\Repositories\impl\UserRepository;
 use App\Repositories\ProductRepositoryInterface;
 use App\Repositories\ProfileRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
+use App\Services\AdminServiceInterface;
 use App\Services\BillServiceInterface;
 use App\Services\CartServiceInterface;
 use App\Services\CustomerServiceInterface;
 use App\Services\impl\BillService;
 use App\Services\impl\CartService;
 use App\Services\impl\CustomerService;
+use App\Services\impl\LangService;
 use App\Services\impl\MailService;
 use App\Services\impl\ProductService;
 use App\Services\impl\ProfileService;
 use App\Services\impl\UserService;
+use App\Services\LangServiceInterface;
 use App\Services\MailServiceInterface;
 use App\Services\ProductServiceInterface;
 use App\Services\ProfileServiceInterface;
 use App\Services\UserServiceInterface;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\Resource;
 
@@ -81,6 +87,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(MailServiceInterface::class,
             MailService::class);
+
     }
 
     /**

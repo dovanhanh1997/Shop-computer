@@ -2,12 +2,23 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\impl\LangService;
 use Closure;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
 class Lang
 {
+    /**
+     * @var LangService
+     */
+    private $langService;
+
+    public function __construct(LangService $langService)
+    {
+        $this->langService = $langService;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -20,7 +31,7 @@ class Lang
         if (!Session::has('lang')) return $next($request);
 
         App::setLocale(Session::get('lang'));
-        $lang = env('locale');
+
         return $next($request);
     }
 }

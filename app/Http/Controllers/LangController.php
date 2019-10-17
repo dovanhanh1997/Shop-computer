@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\LangServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class LangController extends Controller
 {
-    public function changeLang(Request $request)
+    /**
+     * @param $lang
+     * @param Request $request
+     * @return array
+     */
+
+    public function changeLang($lang)
     {
-        $lang = $request->lang;
-        Session::put('lang',$lang);
-//        dd(Session::get('lang',$lang));
-        return redirect()->route('home');
+        Session::put('lang', $lang);
+        return back();
     }
 }
+
