@@ -1,7 +1,9 @@
 @extends("layouts.admin")
 @section("content")
     <div class="container">
-        <h3>List User</h3> <br>
+        <span>        <h3>List User</h3></span>
+        <span><a class="btn btn-primary" href="{{ route('users.create') }}">Add User</a></span>
+        <hr/>
         <table class="table">
             <thead class="thead-dark">
             <tr>

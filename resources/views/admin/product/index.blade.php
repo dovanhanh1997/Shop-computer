@@ -1,7 +1,9 @@
 @extends("layouts.admin")
 @section("content")
     <div class="container">
-        <h3>List Product</h3> <br>
+        <span><h3>List Product</h3></span>
+        <span><a class="btn btn-primary" href="{{ route('products.create') }}">Add Product</a></span>
+        <hr/>
         <table class="table" style="border: 1px solid">
             <thead class="thead-dark">
             <tr>
@@ -21,7 +23,7 @@
                     <td>{{ $product->productName }}</td>
                     <td>{{ number_format($product->productPrice) }}</td>
                     <td><img src="{{ $product->image }}" class="img-thumbnail" alt=""
-                        style="width: 100px"></td>
+                             style="width: 100px"></td>
                     <td>
                         <div class="d-flex">
                             <div class="pr-2">
