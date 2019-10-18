@@ -79,6 +79,8 @@
                     </div>
                     <div class="pr-5"><a class="btn btn-primary" href="/login/facebook">Facebook</a>
                     </div>
+                    <div class="pr-5"><a class="btn btn-primary" href="/login/google">Google</a>
+                    </div>
                 </div>
             </div>
         </div>

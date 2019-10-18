@@ -50,22 +50,19 @@ class HomeController extends Controller
 
     public function index($id = null)
     {
-//        if (config('app.locale') == 'en'){
-//            dd(config('app.locale'));
-//        }
-//
-
         if ($id) {
             $user =$this->userService->findById($id);
             Auth::login($user,true);
         }
-
+        dd(Auth::user());
         $products = $this->productService->getAll();
         return view('home.home', compact('products'));
     }
 
     public function detail($id)
     {
+        var_dump(Auth::user()->name);
+
         $product = $this->productService->findById($id);
         return view('home.detail', compact('product'));
     }
